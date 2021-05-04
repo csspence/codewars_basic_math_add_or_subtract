@@ -8,7 +8,39 @@ Examples
 "1plus2plus3minus4" -->  "2"
 */
 
-function calculate(str) {
-//your code here...
-return str;
+const calculate = (str) => {
+  const signs = [];
+  const nums = [];
+  let sum = 0;
+  let num;
+  for(let i = 0; i < str.length; i++) {
+    if(str[i] === 'p') {
+      signs.push('+');
+    }
+    if(str[i] === 'm') {
+      signs.push('-');
+    }
+    if(typeof Number(str[i]) === 'number') {
+      num = str[i];
+      for(let j = i + 1; j < str.length; j++) {
+        if(typeof Number(str[j]) === 'number') {
+          num += str[j];
+        } else {
+          nums.push(Number(num));
+          i = j;
+          break;
+        }
+      }
+    }
+  }
+  sum = nums[0];
+  for(let i = 1; i < nums.length; i++) {
+    if(signs[i - 1] === '+') {
+      sum += nums[i];
+    } else {
+      sum -= nums[i];
+    }
+  }
+
+  return sum.toString();
 }
