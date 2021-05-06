@@ -12,6 +12,8 @@ const calculate = (str) => {
   const signs = [];
   const nums = [];
   let sum = 0;
+  let string = '';
+  let negative = false;
   for(let i = 0; i < str.length; i++) {
     if(str[i] === 'p') {
       signs.push('+');
@@ -19,8 +21,23 @@ const calculate = (str) => {
     if(str[i] === 'm') {
       signs.push('-');
     }
+    if(str[i] === '-') {
+      negative = true;
+    }
     if(Number(str[i]) * 0 === 0) {
-      nums.push(Number(str[i]));
+      string = '';
+      for(let j = i; j < str.length; j++) {
+        if(Number(str[j]) * 0 === 0) {
+          string += str[j];
+        }
+        i = j;
+      }
+      if(negative === true) {
+        nums.push(Number(string) * -1);
+      } else {
+        nums.push(Number(string));
+      }
+      negative = false;
     }
   }
   sum = nums[0];
