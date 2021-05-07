@@ -12,8 +12,25 @@ const calculate = (str) => {
   const signs = [];
   const nums = [];
   let sum = 0;
-  let string = '';
+  let arr;
   let negative = false;
+  const numberMaker = (index, string) => {
+    let numString = '';
+    let ind = index;
+    for(let i = 0; i < string.length; i++) {
+      if((Number(string[i]) * -1) < 0 ) {
+        numString += string[i];
+        ind = i;
+      } else {
+        break;
+      }
+      ind = i;
+    }
+
+    return [numString, ind];
+  };
+
+
   for(let i = 0; i < str.length; i++) {
     if(str[i] === 'p') {
       signs.push('+');
@@ -25,19 +42,9 @@ const calculate = (str) => {
       negative = true;
     }
     if(Number(str[i]) * 0 === 0) {
-      string = '';
-      for(let j = i; j < str.length; j++) {
-        if(Number(str[j]) * 0 === 0) {
-          string += str[j];
-        }
-        i = j;
-      }
-      if(negative === true) {
-        nums.push(Number(string) * -1);
-      } else {
-        nums.push(Number(string));
-      }
-      negative = false;
+      arr = numberMaker(i, str);
+      nums.push(arr[0]);
+      i = arr[1] - 1;
     }
   }
   sum = nums[0];
