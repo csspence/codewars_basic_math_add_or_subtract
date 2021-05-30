@@ -22,5 +22,6 @@ const calculate = (str) => {
         break;
     }
   }
+  
   return sum+"";
 }
